@@ -11,7 +11,19 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd ">
 
 
-    <mvc:annotation-driven/>
+<!--    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
+<!--        <property name="webBindingInitializer">-->
+<!--            &lt;!&ndash; Configures Spring MVC DataBinder instances &ndash;&gt;-->
+<!--            <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">-->
+<!--                <property name="validator" ref="validator" />-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+    <!-- Creates the JSR-303 Validator -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+    <mvc:annotation-driven validator="validator"/>
 
     <context:component-scan base-package="org.sbolbin.crpt" />
 
