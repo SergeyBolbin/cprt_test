@@ -11,6 +11,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -39,8 +40,8 @@ public class ErrorHandler {
                 .body(new ErrorResponse("Unsupported Content-Type"));
     }
 
-    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<Object> handleNotFoundException(HttpRequestMethodNotSupportedException error) {
+    @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class, NoHandlerFoundException.class})
+    public ResponseEntity<Object> handleNotFoundException(Exception error) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Not found"));

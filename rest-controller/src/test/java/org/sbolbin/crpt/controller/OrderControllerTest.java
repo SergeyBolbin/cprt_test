@@ -55,16 +55,6 @@ class OrderControllerTest {
     }
 
     @Test
-    @DisplayName("unknown path requested - not found returned")
-    public void test_invalidPath() throws Exception {
-        mockMvc.perform(post("/test")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(VALID_PAYLOAD))
-                .andExpect(status().isNotFound())
-                .andExpect(content().json("{\"message\":\"Not found\"}", true));
-    }
-
-    @Test
     @DisplayName("unhandled method requested - not found returned")
     public void test_wrongMethod() throws Exception {
         mockMvc.perform(put(PATH)
