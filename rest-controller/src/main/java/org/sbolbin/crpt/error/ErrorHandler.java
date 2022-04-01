@@ -22,14 +22,14 @@ import java.util.TreeMap;
 public class ErrorHandler {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException error) {
+    public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException error) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(buildValidationErrorMessage(error));
     }
 
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
-    public ResponseEntity<Object> handleInvalidFormatException(HttpMessageNotReadableException error) {
+    public ResponseEntity<?> handleInvalidFormatException(HttpMessageNotReadableException error) {
         log.warn("Invalid request body", error);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -37,7 +37,7 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(value = HttpMediaTypeNotSupportedException.class)
-    public ResponseEntity<Object> handleUnsupportedMediaType(HttpMediaTypeNotSupportedException error) {
+    public ResponseEntity<?> handleUnsupportedMediaType(HttpMediaTypeNotSupportedException error) {
         log.warn("Unsupported content type: {}", error.getContentType());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -45,14 +45,14 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class, NoHandlerFoundException.class})
-    public ResponseEntity<Object> handleNotFoundException(Exception ignore) {
+    public ResponseEntity<?> handleNotFoundException(Exception ignore) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Not found"));
     }
 
     @ExceptionHandler(value = Throwable.class)
-    public ResponseEntity<Object> handleGeneralException(Throwable error) {
+    public ResponseEntity<?> handleGeneralException(Throwable error) {
         log.error("Unexpected error: ", error);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
