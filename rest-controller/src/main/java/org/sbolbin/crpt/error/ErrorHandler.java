@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -31,6 +32,13 @@ public class ErrorHandler {
                 .body(new ErrorResponse("The request body is not a valid JSON"));
     }
 
+    @ExceptionHandler(value = HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<Object> handleUnsupportedMediaType(HttpMediaTypeNotSupportedException error) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Unsupported Content-Type"));
+    }
+
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Object> handleNotFoundException(HttpRequestMethodNotSupportedException error) {
         return ResponseEntity
@@ -44,8 +52,6 @@ public class ErrorHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse("Internal Server Error"));
     }
-
-
 
     private Map<String, String> buildValidationErrorMessage(MethodArgumentNotValidException error) {
         BindingResult bindingResult = error.getBindingResult();

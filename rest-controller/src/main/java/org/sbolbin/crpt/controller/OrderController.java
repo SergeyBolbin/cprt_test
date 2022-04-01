@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@RestController("/v1/order")
+@RestController
 public class OrderController {
 
     @RequestMapping(
+            path = "/v1/order",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

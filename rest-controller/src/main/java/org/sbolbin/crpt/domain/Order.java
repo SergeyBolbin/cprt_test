@@ -3,6 +3,7 @@ package org.sbolbin.crpt.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.With;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@With
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
