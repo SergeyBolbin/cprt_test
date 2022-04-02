@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.sbolbin.crpt.config.ApplicationConfig;
 import org.sbolbin.crpt.domain.Order;
 import org.sbolbin.crpt.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = "classpath:spring-servlet.xml")
+@ContextConfiguration(classes = {ApplicationConfig.class})
 @WebAppConfiguration
 class OrderControllerTest {
     private static final ObjectMapper objectMapper = new ObjectMapper();
